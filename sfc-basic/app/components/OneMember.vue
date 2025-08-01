@@ -7,7 +7,12 @@ interface Props {
     note?: string;
 }
 
+type Emits = {
+    incrementPoint: [id: number];
+}
+
 const props = defineProps<Props>();
+const emit = defineEmits<Emits>();
 
 const localPoints = ref(props.points);
 
@@ -22,7 +27,7 @@ const localNote = computed(
 );
 
 const pointUp = (): void => {
-    localPoints.value++;
+    emit("incrementPoint", props.id);
 }
 </script>
 
@@ -35,7 +40,7 @@ const pointUp = (): void => {
             <dt>メールアドレス</dt>
             <dd>{{ email }}</dd>
             <dt>保有ポイント</dt>
-            <dd>{{ localPoints }}</dd>
+            <dd>{{ points }}</dd>
             <dt>備考</dt>
             <dd>{{ localNote }}</dd>
         </dl>

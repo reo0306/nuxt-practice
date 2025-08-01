@@ -16,6 +16,13 @@ const totalPoints = computed(
   }
 );
 
+const onIncrementPoint = (id: number): void => {
+  const member = memberList.value.get(id);
+  if (member != undefined) {
+    member.points++;
+  }
+}
+
 interface Member {
   id: number;
   name: string;
@@ -36,6 +43,7 @@ interface Member {
       v-bind:name="member.name"
       v-bind:email="member.email"
       v-bind:points="member.points"
-      v-bind:note="member.note"/>
+      v-bind:note="member.note"
+      v-on:incrementPoint="onIncrementPoint"/>
   </section>
 </template>
