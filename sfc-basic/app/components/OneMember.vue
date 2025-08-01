@@ -1,24 +1,17 @@
 <script setup lang="ts">
+import type {Member} from "../interfaces";
+
 interface Props {
     id: number;
-    name: string;
-    email: string;
-    points: number;
-    note?: string;
-}
-
-type Emits = {
-    incrementPoint: [id: number];
 }
 
 const props = defineProps<Props>();
-const emit = defineEmits<Emits>();
-
-const localPoints = ref(props.points);
+const memberList = useState<Map<number, Member>>("memberList");
+const member = memberList.value.get(props.id) as Member;
 
 const localNote = computed(
     (): string => {
-        let localNote = props.note;
+        let localNote = member.note;
         if (localNote == undefined) {
             localNote = "--";
         }
@@ -27,20 +20,20 @@ const localNote = computed(
 );
 
 const pointUp = (): void => {
-    emit("incrementPoint", props.id);
+    member.points++;
 }
 </script>
 
 <template>
     <section class="box">
-        <h4>{{ name }}さんの情報</h4>
+        <h4>{{ member.name }}さんの情報</h4>
         <dl>
             <dt>ID</dt>
             <dd>{{ id }}</dd>
             <dt>メールアドレス</dt>
-            <dd>{{ email }}</dd>
+            <dd>{{ member.email }}</dd>
             <dt>保有ポイント</dt>
-            <dd>{{ points }}</dd>
+            <dd>{{ member.points }}</dd>
             <dt>備考</dt>
             <dd>{{ localNote }}</dd>
         </dl>
