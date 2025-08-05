@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import type {Member} from "../../interfaces";
+import type {Member} from "~/interfaces";
+definePageMeta({
+    layout: "member"
+});
 
 const router = useRouter();
 const memberList = useState<Map<number, Member>>("memberList") ;

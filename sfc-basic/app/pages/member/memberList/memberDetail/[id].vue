@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import type {Member} from "~/interfaces";
+definePageMeta({
+    layout: "member"
+});
 
 const route = useRoute();
 const memberList = useState<Map<number, Member>>("memberList");
