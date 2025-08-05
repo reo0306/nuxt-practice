@@ -13,7 +13,9 @@ useState<Map<number, Member>> (
 </script>
 
 <template>
-  <h1>ルーティングサンプル</h1>
+  <header>
+    <h1>ネストされたルーティングサンプル</h1>
+  </header>
   <main>
     <NuxtPage/>
   </main>
