@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import type {Member} from "~/interfaces";
+const PAGE_TITLE = "会員情報追加";
 definePageMeta({
     layout: "member"
 });
-
+useHead({
+    title: PAGE_TITLE,
+});
 const router = useRouter();
 const memberList = useState<Map<number, Member>>("memberList") ;
 const member: Member = reactive(
@@ -23,7 +26,7 @@ const onAdd = (): void => {
 
 <template>
     <section>
-        <h2>会員情報追加</h2>
+        <h2>{{ PAGE_TITLE }}</h2>
         <p>
             情報を入力し、登録ボタンをクリックしてください。
         </p>
