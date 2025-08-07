@@ -22,7 +22,7 @@ const asyncData = await useAsyncData(
         {
             lang: "ja",
             q: selectedCity.value.q,
-            appid: "8a8a1fc671f3fb93c283de0b194ab1a4",
+            appid: "",
         }
         const queryParams = new URLSearchParams(params);
         const urlFull = `${weatherInfoUrl}?${queryParams}`;
