@@ -10,21 +10,28 @@ const selectedCity = computed(
     }
 );
 const weatherDescription = ref("");
-const weatherInfoUrl = "https://api.openweathermap.org/data/2.5/weather";
-const params: {
-    lang: string,
-    q: string,
-    appid: string,
-} =
-{
-    lang: "ja",
-    q: selectedCity.value.q,
-    appid: "8a8a1fc671f3fb93c283de0b194ab1a4",
-}
-const queryParams = new URLSearchParams(params);
-const urlFull = `${weatherInfoUrl}?${queryParams}`;
-const response = await $fetch(urlFull) as any;
-const weatherArray = response.weather;
+const asyncData = await useAsyncData(
+    `/WeatherInfo/${route.params.id}`,
+    (): Promise<any> => {
+        const weatherInfoUrl = "https://api.openweathermap.org/data/2.5/weather";
+        const params: {
+            lang: string,
+            q: string,
+            appid: string,
+        } =
+        {
+            lang: "ja",
+            q: selectedCity.value.q,
+            appid: "8a8a1fc671f3fb93c283de0b194ab1a4",
+        }
+        const queryParams = new URLSearchParams(params);
+        const urlFull = `${weatherInfoUrl}?${queryParams}`;
+        const response = $fetch(urlFull);
+        return response;
+    }
+);
+const data = asyncData.data;
+const weatherArray = data.value.weather;
 const weather = weatherArray[0];
 weatherDescription.value = weather.description;
 </script>
