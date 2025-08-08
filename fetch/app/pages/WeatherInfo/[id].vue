@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { City } from '~/interfaces';
 
+const config = useRuntimeConfig();
 const route = useRoute();
 const cityList = useState<Map<number, City>>("cityList");
 const selectedCity = computed(
@@ -22,7 +23,7 @@ const asyncData = await useAsyncData(
         {
             lang: "ja",
             q: selectedCity.value.q,
-            appid: "",
+            appid: config.public.openWeatherApiKey,
         }
         const queryParams = new URLSearchParams(params);
         const urlFull = `${weatherInfoUrl}?${queryParams}`;
