@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { City } from '~/interfaces';
 
-const config = useRuntimeConfig();
 const route = useRoute();
 const cityList = useState<Map<number, City>>("cityList");
 const selectedCity = computed(
@@ -10,29 +9,7 @@ const selectedCity = computed(
         return cityList.value.get(idNo) as City;
     }
 );
-//const weatherDescription = ref("");
-const params: {
-    lang: string,
-    q: string,
-    appid: string,
-} = 
-{
-    lang: "ja",
-    q: selectedCity.value.q,
-    appid: config.public.openWeatherApiKey,
-}
-const asyncData = await useLazyFetch(
-    "https://api.openweathermap.org/data/2.5/weather",
-    {
-        key: `/WeatherInfo/${route.params.id}`,
-        query: params,
-        transform: (data: any): string => {
-            const weatherArray = data.weather;
-            const weather = weatherArray[0];
-            return weather.description;
-        }
-    }
-);
+const asyncData = useWeatherInfoFetcher(selectedCity.value);
 const weatherDescription = asyncData.data;
 const pending = asyncData.pending;
 </script>

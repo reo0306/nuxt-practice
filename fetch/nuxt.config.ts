@@ -5,7 +5,8 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   runtimeConfig: {
     public: {
-      openWeatherApiKey: process.env.NUXT_PUBLIC_APP_OPENWEATHER_API_KEY,
+      weatherInfoUrl: "https://api.openweathermap.org/data/2.5/weather",
+      weathermapAppid: process.env.NUXT_PUBLIC_APP_OPENWEATHER_API_KEY
     }
   }
 })
