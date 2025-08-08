@@ -21,7 +21,7 @@ const params: {
     q: selectedCity.value.q,
     appid: config.public.openWeatherApiKey,
 }
-const asyncData = await useFetch(
+const asyncData = await useLazyFetch(
     "https://api.openweathermap.org/data/2.5/weather",
     {
         key: `/WeatherInfo/${route.params.id}`,
@@ -34,10 +34,12 @@ const asyncData = await useFetch(
     }
 );
 const weatherDescription = asyncData.data;
+const pending = asyncData.pending;
 </script>
 
 <template>
-    <section>
+    <p v-if="pending">データ取得中⋯</p>
+    <section v-else>
         <h2>{{ selectedCity.name }}の天気</h2>
         <p>{{ weatherDescription }}</p>
     </section>
