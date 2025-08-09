@@ -1,6 +1,6 @@
 <template>
     <header>
-        <h1>ヘッダ変更サンプル</h1>
+        <h1>サーバ変更サンプル</h1>
     </header>
     <main>
         <h1>会員管理</h1>

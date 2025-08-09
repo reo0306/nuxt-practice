@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type {Member} from "../../interfaces";
+//import type {Member} from "../../interfaces";
+
 const PAGE_TITLE = "会員リスト";
 definePageMeta({
     layout: "member"
@@ -7,7 +8,10 @@ definePageMeta({
 useHead({
     title: PAGE_TITLE,
 })
-const memberList = useState<Map<number, Member>>("memberList");
+
+const asyncData = useLazyFetch("/api/getMemberList");
+const memberList = asyncData.data;
+const pending = asyncData.pending;
 </script>
 
 <template>
@@ -20,13 +24,14 @@ const memberList = useState<Map<number, Member>>("memberList");
     <section>
         <h2>{{ PAGE_TITLE }}</h2>
         <p>新規登録は<NuxtLink v-bind:to="{name: 'member-memberList-memberAdd'}">こちら</NuxtLink>から</p>
-        <section>
+        <p v-if="pending">データ取得中⋯</p>
+        <section v-else>
             <ul>
                 <li 
-                v-for="[id, member] in memberList"
-                v-bind:key="id">
-                <NuxtLink v-bind:to="{name: 'member-memberList-memberDetail-id', params: {id: id}}">
-                    IDが{{ id }}の{{ member.name }}さん
+                v-for="member in memberList"
+                v-bind:key="member.id">
+                <NuxtLink v-bind:to="{name: 'member-memberList-memberDetail-id', params: {id: member.id}}">
+                    IDが{{ member.id }}の{{ member.name }}さん
                 </NuxtLink>
                 </li>
             </ul>
