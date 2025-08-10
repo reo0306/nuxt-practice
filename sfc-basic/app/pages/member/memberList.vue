@@ -21,6 +21,11 @@ const memberList = computed(
         return returnList;
     }
 );
+const isEmptyList = computed(
+    (): boolean => {
+        return memberList.value.length == 0;
+    }
+)
 </script>
 
 <template>
@@ -36,6 +41,7 @@ const memberList = computed(
         <p v-if="pending">データ取得中⋯</p>
         <section v-else>
             <ul>
+                <li v-if="isEmptyList">会員情報は存在しません</li>
                 <li 
                 v-for="member in memberList"
                 v-bind:key="member.id">
