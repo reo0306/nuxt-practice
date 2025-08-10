@@ -15,5 +15,10 @@
                 致命的エラー発生実験
             </NuxtLink>
         </li>
+        <li>
+            <NuxtLink v-bind:to="{name: 'errorHandlerServer'}">
+                サーバーエラー発生実験
+            </NuxtLink>
+        </li>
     </ul>
 </template>
