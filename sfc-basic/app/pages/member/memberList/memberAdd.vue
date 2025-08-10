@@ -8,7 +8,6 @@ useHead({
     title: PAGE_TITLE,
 });
 const router = useRouter();
-//const memberList = useState<Map<number, Member>>("memberList") ;
 const member: Member = reactive(
     {
         id: 0,
@@ -22,7 +21,7 @@ const pending = ref(false);
 const onAdd = async (): Promise<void> => {
     pending.value = true;
     const asyncData = await useFetch(
-        "/api/addMemberInfo",
+        "/member-management/members",
         {
             method: "POST",
             body: member,

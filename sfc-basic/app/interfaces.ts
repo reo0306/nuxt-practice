@@ -5,3 +5,7 @@ export interface Member {
     points: number;
     note?: string;
 }
+export interface ReturnJSONMembers {
+    result: number;
+    data: Member[];
+}
