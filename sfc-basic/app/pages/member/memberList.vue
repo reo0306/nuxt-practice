@@ -26,6 +26,15 @@ const isEmptyList = computed(
         return memberList.value.length == 0;
     }
 )
+const noServerError = computed(
+    (): boolean => {
+        let returnVal = false;
+        if (asyncData.error.value == null && responseData.value != null && responseData.value.result == 1) {
+            returnVal = true;
+        }
+        return returnVal;
+    }
+);
 </script>
 
 <template>
@@ -39,18 +48,21 @@ const isEmptyList = computed(
         <h2>{{ PAGE_TITLE }}</h2>
         <p>新規登録は<NuxtLink v-bind:to="{name: 'member-memberList-memberAdd'}">こちら</NuxtLink>から</p>
         <p v-if="pending">データ取得中⋯</p>
-        <section v-else>
-            <ul>
-                <li v-if="isEmptyList">会員情報は存在しません</li>
-                <li 
-                v-for="member in memberList"
-                v-bind:key="member.id">
-                <NuxtLink v-bind:to="{name: 'member-memberList-memberDetail-id', params: {id: member.id}}">
-                    IDが{{ member.id }}の{{ member.name }}さん
-                </NuxtLink>
-                </li>
-            </ul>
-        </section>
+        <template v-else>
+            <section v-if="noServerError">
+                <ul>
+                    <li v-if="isEmptyList">会員情報は存在しません</li>
+                    <li 
+                    v-for="member in memberList"
+                    v-bind:key="member.id">
+                    <NuxtLink v-bind:to="{name: 'member-memberList-memberDetail-id', params: {id: member.id}}">
+                        IDが{{ member.id }}の{{ member.name }}さん
+                    </NuxtLink>
+                    </li>
+                </ul>
+            </section>
+            <p v-else>サーバからデータ取得中に障害が発生しました</p>
+        </template>
         <NuxtPage />
     </section>
 </template>
