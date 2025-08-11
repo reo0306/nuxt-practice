@@ -1,3 +1,13 @@
+<script setup lang="ts">
+import type { User } from '@/interfaces';
+
+const loginTokenCookie = useCookie<string|null>("loginToken");
+const loginUserCookie = useCookie<User|null>("loginUser");
+if (loginTokenCookie.value == null || loginUserCookie.value == null) {
+    await navigateTo("/login");
+}
+</script>
+
 <template>
     <h1>TOP</h1>
     <nav id="breadcrumbs">
