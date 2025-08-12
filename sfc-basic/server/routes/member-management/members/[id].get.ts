@@ -11,7 +11,7 @@ export default defineEventHandler(
             const params = event.context.params;
             let memberList = new Map<number, Member>();
             const storage = useStorage();
-            const memberListStorage = await storage.getItem("local:member-management_members");
+            const memberListStorage = await storage.getItem("redis:member-management_members");
 
             //throw createError("疑似エラー発生");
             if (memberListStorage != undefined) {
